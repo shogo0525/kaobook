@@ -1,4 +1,14 @@
 Rails.application.routes.draw do
+
+  root 'kaobooks#index'
+  get "kaobooks" =>'kaobooks#index'
+
+  #devise_forメソッドを使用することで、ログイン機能に必要なroutingが生成されます。
+  devise_for :users, controllers: {
+    registrations: "users/registrations",
+    omniauth_callbacks: "users/omniauth_callbacks"
+  }
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
