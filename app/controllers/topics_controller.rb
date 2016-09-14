@@ -1,4 +1,5 @@
 class TopicsController < ApplicationController
+  before_action :authenticate_user!
 	before_action :set_topic, only:[:show, :edit, :update, :destroy]
 
   def index
@@ -15,8 +16,11 @@ class TopicsController < ApplicationController
 
   def create
   	@topic = Topic.new(topics_params)
+    @topic.user_id = current_user.id
   	if @topic.save
   		redirect_to root_path, notice: "投稿しました！"
+    else
+      redirect_to root_path, notice: "投稿が失敗しました！"
   	end
   end
 
@@ -32,6 +36,8 @@ class TopicsController < ApplicationController
   end
 
   def destroy
+		@topic.destroy
+    redirect_to root_path, notice: "削除しました！"
   end
 
   private
