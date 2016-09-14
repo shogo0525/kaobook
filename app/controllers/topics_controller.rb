@@ -8,6 +8,8 @@ class TopicsController < ApplicationController
   end
 
   def show
+    @comment = @topic.comments.build
+    @comments = @topic.comments
   end
 
   def new
@@ -31,7 +33,7 @@ class TopicsController < ApplicationController
     if @topic.update(topics_params)
       redirect_to root_path, notice: "更新しました！"
     else
-      render :edit
+      redirect_to root_path, notice: "投稿が失敗しました！"
     end
   end
 

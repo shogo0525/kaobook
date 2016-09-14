@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  #トップページ
   root 'topics#index'
 
   #kaobooks
@@ -8,7 +9,9 @@ Rails.application.routes.draw do
   #topics
   get "topics" =>'topics#index'
 
-  resources :topics
+  resources :topics do
+    resources :comments
+  end
 
   #users
   #devise_forメソッドを使用することで、ログイン機能に必要なroutingが生成されます。

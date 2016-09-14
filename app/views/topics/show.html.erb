@@ -1,6 +1,15 @@
 <div>
 
-<h2><%= @topic.created_at %></h2>
-<p><%= @topic.content %></p>
+	<h2><%= @topic.created_at %></h2>
+	<p><%= @topic.content %></p>
+
+	<p>コメント一覧</p>
+  <div id="comments_area">
+    <%= render partial: 'comments/index', locals: { comments: @comments, topic: @topic } %>
+  </div>
+  <%= render partial: 'comments/form', locals: { comment: @comment, topic: @topic } %>
+
+
+
 
 </div>

@@ -3,4 +3,5 @@ class Topic < ActiveRecord::Base
 
 	#アソシエーション
 	belongs_to :user
+  has_many :comments, dependent: :destroy
 end
