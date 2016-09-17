@@ -1,9 +1,5 @@
 Rails.application.routes.draw do
 
-  get 'relationships/create'
-
-  get 'relationships/destroy'
-
   #トップページ
   root 'topics#index'
 
@@ -28,6 +24,11 @@ Rails.application.routes.draw do
 
   #フォロー
   resources :relationships, only: [:create, :destroy]
+
+  #メッセージ
+  resources :conversations do
+    resources :messages
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

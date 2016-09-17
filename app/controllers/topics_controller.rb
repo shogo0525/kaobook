@@ -13,11 +13,11 @@ class TopicsController < ApplicationController
   end
 
   def new
-  	@topic = Topic.new(topics_params)
+  	@topic = Topic.new(topic_params)
   end
 
   def create
-  	@topic = Topic.new(topics_params)
+  	@topic = Topic.new(topic_params)
     @topic.user_id = current_user.id
   	if @topic.save
   		redirect_to root_path, notice: "投稿しました！"
@@ -30,7 +30,7 @@ class TopicsController < ApplicationController
   end
 
   def update
-    if @topic.update(topics_params)
+    if @topic.update(topic_params)
       redirect_to root_path, notice: "更新しました！"
     else
       redirect_to root_path, notice: "投稿が失敗しました！"
@@ -43,7 +43,7 @@ class TopicsController < ApplicationController
   end
 
   private
-	  def topics_params
+	  def topic_params
 	  	params.require(:topic).permit(:content)
 	  end
 
