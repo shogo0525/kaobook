@@ -1,41 +1,43 @@
-<% if @over_ten %>
-  <%= link_to '以前のメッセージ', '?m=all' %>
-<% end %>
+<div class="container">
+    <div class="col-md-6 col-md-offset-3 col-sm-10 col-sm-offset-1">
 
-<div class="ui segment">
-  <% @messages.each do |message| %>
-    <% if message.body %>
-      <% user = User.find(message.user_id) %>
-      <div class="item">
-        <div class="content">
-          <div class="header">
-            <%= profile_img(user) %>
-            <strong><%= user.name %></strong> <%= message.message_time %>
-          </div>
-          <div class="list">
-            <div class="item">
-              <i class="right triangle icon"></i>
-              <%= message.body %>
+    <% if @over_ten %>
+      <%= link_to '以前のメッセージ', '?m=all' %>
+    <% end %>
+
+    <div class="ui segment">
+      <% @messages.each do |message| %>
+        <% if message.body %>
+          <% user = User.find(message.user_id) %>
+          <div class="item">
+            <div class="content">
+              <div class="header">
+                <%= profile_img(user) %>
+                <strong><%= user.name %></strong> <%= message.message_time %>
+              </div>
+              <div class="list">
+                <div class="item">
+                  <i class="right triangle icon"></i>
+                  <%= message.body %>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
+        <% end %>
+      <% end %>
+    </div>
+
+
+    <% if is_friend(@conversation.sender_id, @conversation.recipient_id) %>
+      <%= form_for [@conversation, @message], html: {class: "ui reply form"} do |f| %>
+          <%= f.text_area :body, class: "form-control" %>
+          <%= f.text_field :user_id, value: current_user.id, type: "hidden"  %>
+          <br>
+          <%= f.submit "メッセージを送る", class: "btn btn-primary" %>
+      <% end %>
+    <% else %>
+      <h3>友達ではないのでメッセージはできません</h3>
     <% end %>
-  <% end %>
+
+  </div>
 </div>
-
-
-<% if is_friend(@conversation.sender_id, @conversation.recipient_id) %>
-  <%= form_for [@conversation, @message], html: {class: "ui reply form"} do |f| %>
-    <div class="field">
-      <%= f.text_area :body, class: "form-control" %>
-    </div>
-      <%= f.text_field :user_id, value: current_user.id, type: "hidden"  %>
-    <div>
-      <%= f.submit "メッセージを送る" %>
-    </div>
-
-  <% end %>
-<% else %>
-  <h3>友達ではないのでメッセージはできません</h3>
-<% end %>
