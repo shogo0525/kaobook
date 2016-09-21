@@ -9,7 +9,10 @@
 	        （フォローされています）
 	        <% end %>
 	        <br>
-	        <%= link_to 'メッセージ', conversations_path(sender_id: current_user.id, recipient_id: user.id), method: 'post'%>
+
+	        <%# if user.following?(current_user) && current_user.following?(user) %>
+	        	<%= link_to 'メッセージ', conversations_path(sender_id: current_user.id, recipient_id: user.id), method: 'post'%>
+	        <%# end %>
 	        <%= render 'follow_form', user: user %>
 	        <br>
 	      </div>

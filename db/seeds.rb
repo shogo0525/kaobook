@@ -5,3 +5,12 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+
+10.times do |n|
+    content = Faker::Pokemon.name
+    user_id = rand(1..7)
+    Topic.create!(content: content,
+    							user_id: user_id
+                 )
+end

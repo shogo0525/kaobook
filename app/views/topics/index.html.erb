@@ -12,9 +12,11 @@
 		<div class="row">
 			<h4><%= topic.user.name %>（<%= topic.created_at %>）</h4>
 			<p><%= topic.content %></p>
-      <%= link_to "編集", edit_topic_path(topic.id) %>
+			<% if topic.user_id == current_user.id %>
+	      <%= link_to "編集", edit_topic_path(topic.id) %>
+	      <%= link_to '削除', topic_path(topic.id), method: :delete, data: {confirm: "本当に削除していいですか？?"} %>
+      <% end %>
       <%= link_to "詳細", topic_path(topic.id) %>
-      <%= link_to '削除', topic_path(topic.id), method: :delete, data: {confirm: "本当に削除していいですか？?"} %>
 		</div>
 	<% end %>
 

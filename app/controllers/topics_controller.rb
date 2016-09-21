@@ -4,7 +4,7 @@ class TopicsController < ApplicationController
 
   def index
   	@topic = Topic.new
-  	@topics = Topic.order(created_at: :desc)
+  	@topics = friend_topics
   end
 
   def show
@@ -30,16 +30,24 @@ class TopicsController < ApplicationController
   end
 
   def update
-    if @topic.update(topic_params)
-      redirect_to root_path, notice: "更新しました！"
+    if @topic.user_id == current_user.id
+      if @topic.update(topic_params)
+        redirect_to root_path, notice: "更新しました！"
+      else
+        redirect_to root_path, notice: "投稿が失敗しました！"
+      end
     else
-      redirect_to root_path, notice: "投稿が失敗しました！"
+      redirect_to root_path, notice: "不正な操作が行われました！"
     end
   end
 
   def destroy
-		@topic.destroy
-    redirect_to root_path, notice: "削除しました！"
+    if @topic.user_id == current_user.id
+      @topic.destroy
+      redirect_to root_path, notice: "削除しました！"
+    else 
+      redirect_to root_path, notice: "不正な操作が行われました！"
+    end
   end
 
   private
@@ -50,4 +58,26 @@ class TopicsController < ApplicationController
 	  def set_topic
 	  	@topic = Topic.find(params[:id])
 	  end
+
+    def friend_topics
+      topics = Topic.all.order(created_at: :desc)
+      friends = current_user.friend
+      timeline = []
+
+      if friends.blank?
+        topics.each do |topic|
+          timeline << topic if topic.user_id == current_user.id
+        end
+
+      elsif friends.present?
+        topics.each do |topic|
+          friends.each do |fri|
+            timeline << topic if topic.user_id == fri.id || topic.user_id == current_user.id
+          end
+        end
+      end
+
+      return timeline
+    end
+
 end

@@ -77,4 +77,14 @@ class User < ActiveRecord::Base
   def unfollow!(other_user)
     relationships.find_by(followed_id: other_user.id).destroy
   end
+
+  def friend
+    followers & followed_users
+  end
+
+  #相互フォローしているか
+  def followed_follower(current_user, other_user)
+    relationships.where(followed_id: current_user.id).where(follower_id: other_user.id)
+  end
+
 end

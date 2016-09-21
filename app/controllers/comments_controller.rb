@@ -1,4 +1,6 @@
 class CommentsController < ApplicationController
+  before_action :set_comment, only: [:edit, :update, :destroy]
+
   def create
     # ログインユーザーに紐付けてインスタンス生成するためbuildメソッドを使用します。
     @comment = current_user.comments.build(comment_params)
@@ -19,22 +21,35 @@ class CommentsController < ApplicationController
   end
 
   def edit
-    @comment = Comment.find(params[:id])
+  end
 
-    respond_to do |format|
-      format.js { render :edit }
+  def update
+    if @comment.user_id == current_user.id
+      if @comment.update(comment_params)
+        redirect_to topic_path(@comment.topic)
+      else
+        render :edit
+      end
+    else
+      redirect_to root_path, notice: "不正な操作が行われました！"
     end
   end
   
   def destroy
-    #@comment = current_user.comments.build(comment_params)
-    @comment = Comment.find(params[:id])
-    @comment.destroy
-    
-    #redirect_to blogs_path, notice: "ブログを削除しました！"
-    respond_to do |format|
-      format.js { render :index }
+    if @comment.user_id == current_user.id
+      @comment.destroy
+      
+      #redirect_to blogs_path, notice: "ブログを削除しました！"
+      respond_to do |format|
+        format.js { render :index }
+      end
+    else 
+      redirect_to root_path, notice: "不正な操作が行われました！"
     end
+  end
+
+  def set_comment
+    @comment = current_user.comments.find(params[:id])
   end
 
   private
