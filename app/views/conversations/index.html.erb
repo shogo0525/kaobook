@@ -9,6 +9,7 @@
         <td>
         	<% target = conversation.target_user(current_user) %>
           <% if target.present? %>
+            <%= profile_img(target) %>
             <%= link_to target.name, conversation_messages_path(conversation)%>
           <% end %> 
         </td>

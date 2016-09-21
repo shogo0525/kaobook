@@ -14,15 +14,4 @@ class Conversation < ActiveRecord::Base
       User.find(sender_id)
     end
   end
-
-  def is_friend(sender_id, recipient_id)
-    sender = User.find(sender_id)
-    recipient = User.find(recipient_id)
-    if sender.following?(recipient) && recipient.following?(sender)
-      return true
-    else
-      return false
-    end
-  end
-  
 end

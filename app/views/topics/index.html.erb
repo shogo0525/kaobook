@@ -10,6 +10,7 @@
 
 	<% @topics.each do |topic| %>
 		<div class="row">
+		<%= profile_img(topic.user) %>
 			<h4><%= topic.user.name %>（<%= topic.created_at %>）</h4>
 			<p><%= topic.content %></p>
 			<% if topic.user_id == current_user.id %>

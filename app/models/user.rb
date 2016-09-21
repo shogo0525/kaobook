@@ -1,5 +1,4 @@
 class User < ActiveRecord::Base
-
   #アソシエーション
   has_many :topics, dependent: :destroy
   has_many :comments, dependent: :destroy
@@ -13,6 +12,8 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable
+
+  mount_uploader :avatar, AvatarUploader
 
   def self.create_unique_string
     SecureRandom.uuid
