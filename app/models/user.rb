@@ -1,17 +1,18 @@
 class User < ActiveRecord::Base
-  #アソシエーション
-  has_many :topics, dependent: :destroy
-  has_many :comments, dependent: :destroy
-  has_many :relationships, foreign_key: "follower_id", dependent: :destroy
-  has_many :reverse_relationships, foreign_key: "followed_id", class_name: "Relationship", dependent: :destroy
-  has_many :followed_users, through: :relationships, source: :followed
-  has_many :followers, through: :reverse_relationships, source: :follower
-
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :confirmable
+
+  #アソシエーション
+  has_many :topics, dependent: :destroy
+  has_many :comments, dependent: :destroy
+  has_many :messages, dependent: :destroy
+  has_many :relationships, foreign_key: "follower_id", dependent: :destroy
+  has_many :reverse_relationships, foreign_key: "followed_id", class_name: "Relationship", dependent: :destroy
+  has_many :followed_users, through: :relationships, source: :followed
+  has_many :followers, through: :reverse_relationships, source: :follower
 
   mount_uploader :avatar, AvatarUploader
 
@@ -81,11 +82,6 @@ class User < ActiveRecord::Base
 
   def friend
     followers & followed_users
-  end
-
-  #相互フォローしているか
-  def followed_follower(current_user, other_user)
-    relationships.where(followed_id: current_user.id).where(follower_id: other_user.id)
   end
 
 end
