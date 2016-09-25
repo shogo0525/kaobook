@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
 
-  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   #トップページ
-  root 'topics#index'
+  #root 'topics#index'
+  root to: 'topics#index'
+
+  #管理者ページ
+  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 
   #kaobooks
   get "kaobooks" =>'kaobooks#index'

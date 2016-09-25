@@ -11,7 +11,7 @@ Rails.application.configure do
     :authentication => :plain,
     :user_name => ENV["SMTP_SETTING_EMAIL"],
     :password => ENV["SMTP_SETTING_PASSWORD"],
-    :password => "aamfftnnarrareho",
+    :password => ENV["SMTP_SETTING_PASSWORD"],
   }
 
   # Settings specified here will take precedence over those in config/application.rb.

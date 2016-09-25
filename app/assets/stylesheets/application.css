@@ -14,6 +14,20 @@
  *= require_self
  */
 
+.navbar-default {
+  background-color: #3C5A98;
+ }
+
+.navbar-default .navbar-nav>li>a {
+    color: white;
+}
+
+.notice,
+.alert {
+	text-align: center;
+}
+
+/*
 header {
   width: 100%;
   background-color: #3C5A98;
@@ -43,6 +57,7 @@ header a:link,
 header a:visited {
 	color: white;
 }
+*/
 
 .form {
 	margin: 50px 0;

@@ -3,4 +3,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
     hash[:uid] = User.create_unique_string
     super
   end
+
+  def create
+    #if params[:format] == 'js'
+    #  flash.now[:notice] = I18n.t('devise.registrations.signed_up_but_unconfirmed')
+    #end
+    #super
+  end
 end
