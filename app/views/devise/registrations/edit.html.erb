@@ -5,10 +5,12 @@
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
       <%= devise_error_messages! %>
 
-      <div class="field">
-        <%= f.label :メールアドレス %><br />
-        <%= f.email_field :email, class: "form-control", autofocus: true %>
-      </div>
+      <% if @user.provider.blank? %>
+        <div class="field">
+          <%= f.label :メールアドレス %><br />
+          <%= f.email_field :email, class: "form-control", autofocus: true %>
+        </div>
+      <% end %>
 
       <!-- 名前入力用のフィールドを追加 -->
       <div class="field">
