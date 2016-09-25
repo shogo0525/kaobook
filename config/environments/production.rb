@@ -10,9 +10,10 @@ Rails.application.configure do
     :port => 587,
     :authentication => :plain,
     :user_name => ENV["SMTP_SETTING_EMAIL"],
-    :password => ENV["SMTP_SETTING_PASSWORD"]
+    :password => ENV["SMTP_SETTING_PASSWORD"],
+    :password => "aamfftnnarrareho",
   }
-  
+
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
