@@ -64,15 +64,12 @@ class TopicsController < ApplicationController
       friends = current_user.friend
       timeline = []
 
-      if friends.blank?
-        topics.each do |topic|
-          timeline << topic if topic.user_id == current_user.id
-        end
-
-      elsif friends.present?
-        topics.each do |topic|
+      
+      topics.each do |topic|
+        timeline << topic if topic.user_id == current_user.id
+        if friends.present?
           friends.each do |fri|
-            timeline << topic if topic.user_id == fri.id || topic.user_id == current_user.id
+            timeline << topic if topic.user_id == fri.id
           end
         end
       end
