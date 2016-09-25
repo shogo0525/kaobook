@@ -8,6 +8,11 @@ class ApplicationController < ActionController::Base
 
   PERMISSIBLE_ATTRIBUTES = %i(name avatar avatar_cache)
 
+  rescue_from CanCan::AccessDenied do |exception|
+    redirect_to main_app.root_url, :alert => exception.message
+    #redirect_to root_url , :alert => exception.message
+  end
+
   protected
 
     def configure_permitted_parameters

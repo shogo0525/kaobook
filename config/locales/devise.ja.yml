@@ -28,7 +28,7 @@ ja:
 #      unconfirmed: 'You have to confirm your account before continuing.'
     mailer:
       confirmation_instructions:
-        subject: 'アカウントの登録方法'
+        subject: 'アカウントの認証を行う'
 #        subject: 'Confirmation instructions'
       reset_password_instructions:
         subject: 'パスワードの再設定'
